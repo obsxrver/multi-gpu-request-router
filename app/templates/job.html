@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Job {{ job.job_id }}</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 2rem;
+      background: #f6f7fb;
+      color: #1a1a1a;
+    }
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+    .label {
+      font-weight: 600;
+      margin-top: 1rem;
+    }
+    .status {
+      text-transform: capitalize;
+      font-weight: 600;
+    }
+    a {
+      color: #4f46e5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Job Status</h1>
+    <p class="label">Job ID</p>
+    <p>{{ job.job_id }}</p>
+
+    <p class="label">Status</p>
+    <p class="status">{{ job.status }}</p>
+
+    <p class="label">GPU</p>
+    <p>{{ job.gpu_id if job.gpu_id is not none else '-' }}</p>
+
+    <p class="label">Prompt ID</p>
+    <p>{{ job.prompt_id if job.prompt_id else '-' }}</p>
+
+    <p class="label">Uploaded Image</p>
+    <p>{{ job.image_filename }}</p>
+
+    {% if job.error %}
+    <p class="label">Error</p>
+    <p>{{ job.error }}</p>
+    {% endif %}
+
+    <p class="label">Created</p>
+    <p>{{ job.created_at.strftime('%Y-%m-%d %H:%M:%S UTC') }}</p>
+
+    <p><a href="/">Back to dashboard</a></p>
+  </div>
+</body>
+</html>
